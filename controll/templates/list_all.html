@@ -1,51 +1,66 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-</head>
-<body>
-	{% if aula.active %}
-		<a href="end">Finalizar</a>
-	{% else %}
-		<a href="start">Start</a>
-	{% endif %}
-	<table id="alunos-table">
-	     <thead>
-	         <tr>
-	         	<th>Nome</th>
-	         	<th>Status</th>
-	         </tr>
-	     </thead>
-     	<tbody></tbody>
-	</table>
+{% load static %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="{% static 'assets/css/table.css' %}" rel="stylesheet" id="bootstrap-css">
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
-</body>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
-<script type="text/javascript" language="javascript" class="init">
-	$(document).ready(function() {
-         var table = $('#alunos-table').dataTable( {
-             "processing": true,
-             "ajax": {
-                 "processing": true,
-                 "url": "/get-alunos",
-                 "dataSrc": ""
-             },
+<div class="container">
+	<div class="row">
 
-             "columns": [
-                     { "data": "fields.nome" },
-                     { "data": null, render: function ( data, type, row ) {
-                     	if (data.fields.is_presente) {
-                     		return "Presente"
-                     	}
-                		return "Ausente"
-        			 }}
-                 ]
-         } );
-
-         setInterval( function () {
-		    table.api().ajax.reload();
-		}, 5000 );
-     } );
- </script>
-</html>
+		<section class="content">
+			<div class="col-md-8 col-md-offset-2">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="pull-left">
+							<div class="btn-group">
+								{% if aula.active %}
+									<a href="/end" class="btn btn-danger btn-filter" data-target="cancelado">Finalizar Aula</a>
+								{% else %}
+									<a href="/start" class="btn btn-success btn-filter" data-target="pagado">Iniciar Aula</a>
+								{% endif %}
+							</div>
+						</div>
+						<div class="pull-right">
+							<div class="btn-group">
+								<a href="/add" class="btn btn-default">Adicionar Aluno</a>
+							</div>
+						</div>			
+						<div class="table-container">
+							<table class="table table-filter">
+								<tbody>
+									{% for aluno in alunos %}
+										<tr data-status="pagado">
+											<td>
+												<div class="media">
+													<a class="pull-left">
+														<img src="/media/{{ aluno.foto }}" class="media-photo">
+													</a>
+													<div class="media-body">
+														<h4 class="title">
+															{{ aluno.nome }}
+															{% if aluno.is_presente %}
+																<span class="pull-right pagado">Presente</span>
+															{% else %}
+																<span class="pull-right cancelado">Ausente</span>
+															{% endif %}
+														</h4>
+													</div>
+												</div>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+	</div>
+</div>
+<script>
+	setInterval(function() {
+		location.reload();
+	}, 5000)
+</script>
