@@ -61,6 +61,7 @@
 </div>
 <script>
 	setInterval(function() {
-		location.reload();
-	}, 5000)
+		// location.reload();
+		$(".table-container").load(location.href + " .table-container");
+	}, 1000)
 </script>
