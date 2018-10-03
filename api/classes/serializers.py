@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Aluno
+from core.models import Aluno
 
 class AlunosSerializer(ModelSerializer):
     class Meta:
