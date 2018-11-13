@@ -11,12 +11,20 @@ class AlunosSerializer(ModelSerializer):
 class AulasSerializer(ModelSerializer):
 	data_inicio = serializers.DateTimeField(format='%H:%M %d/%m/%Y')
 	data_final = serializers.DateTimeField(format='%H:%M  %d/%m/%Y')
-	is_atual = serializers.SerializerMethodField(read_only=True)
+	tipo = serializers.SerializerMethodField()
 
 	class Meta:
 		model = Aula
 		fields = '__all__'
 		depth = 2
 
-	def get_is_atual(self, obj):
-		import pdb; pdb.set_trace()
+	def get_tipo(self, obj):
+		data_atual = int(datetime.datetime.now().strftime("%Y%m%d%H%M"))
+		data_inicio = int(obj.data_inicio.strftime("%Y%m%d%H%M"))
+		data_final = int(obj.data_final.strftime("%Y%m%d%H%M"))
+		if data_atual < data_inicio:
+			return 1
+		if data_atual > data_inicio and data_atual < data_final:
+			return 2
+		return 3
+

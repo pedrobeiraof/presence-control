@@ -13,7 +13,7 @@ class Aula extends Component {
   }
   componentDidMount() {
     this.fetchAlunos()
-    this.countdown = setInterval(() => this.reconhecerAlunos(), 10000);
+    this.countdown = setInterval(() => this.reconhecerAlunos(), 3000);
   }
 
   componentWillUnmount() {
@@ -64,7 +64,7 @@ class Aula extends Component {
     }]
 
     return (
-      <div>
+      <div className="list-base">
         <ReactTable
           data={alunos}
           columns={columns}

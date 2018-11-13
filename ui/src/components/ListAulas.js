@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import ReactTable from "react-table";
 import { Link } from "react-router-dom";
+import 'react-table/react-table.css'
 
 class ListAulas extends Component {
   constructor(props) {
@@ -26,9 +27,13 @@ class ListAulas extends Component {
   }
 
   handleLink(d) {
-    console.log(Date.now())
-    console.log(d.original.data_final)
-    return <Link to={`/aulas/${d.original.id}`}>AQUI</Link>
+    if (d.original.tipo === 2) {
+      return <Link to={`/aulas/${d.original.id}`}>AQUI</Link>
+    }
+    if (d.original.tipo === 3) {
+      return <Link to={`/relatorios/${d.original.id}`}>AQUI</Link> 
+    }
+    return null
   }
 
   render() {
@@ -48,7 +53,8 @@ class ListAulas extends Component {
     }]
 
     return (
-      <div>
+      <div className="list-base">
+        <h1>Aulas</h1>
         <ReactTable
           data={aulas}
           columns={columns}
