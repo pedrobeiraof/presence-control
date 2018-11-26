@@ -9,6 +9,7 @@ class Aula extends Component {
     this.state = {
       alunos: [],
       alunosPresentes: [],
+      ds_aula: '',
     }
   }
   componentDidMount() {
@@ -29,7 +30,6 @@ class Aula extends Component {
       data.append('id_aula', params.id);
       axios.post(`http://localhost:8000/recognition/`, data)
         .then(response => {
-          console.log(response)
           this.setState({ alunosPresentes: response.data })
         })
         .catch(error => {
@@ -42,7 +42,10 @@ class Aula extends Component {
   	const { params } = this.props.match
     axios.get(`http://localhost:8000/aulas/${params.id}`)
       .then(response => {
-        this.setState({ alunos: response.data.alunos })
+        this.setState({
+          alunos: response.data.alunos,
+          ds_aula: response.data.ds_aula,
+        })
       })
       .catch(error => {
         console.log(error)
@@ -50,7 +53,7 @@ class Aula extends Component {
   }
 
   render() {
-    const { alunos, alunosPresentes } = this.state;
+    const { alunos, alunosPresentes, ds_aula } = this.state;
     const columns = [{
 			Header: 'Nome',
 			accessor: 'nome'
@@ -64,19 +67,22 @@ class Aula extends Component {
     }]
 
     return (
-      <div className="list-base">
-        <ReactTable
-          data={alunos}
-          columns={columns}
-        />
-        <div hidden>
-          <Camera
-            ref={(cam) => {
-              this.camera = cam;
-            }}
+      <React.Fragment>
+        <h1>{ds_aula}</h1>
+        <div className="list-base">
+          <ReactTable
+            data={alunos}
+            columns={columns}
           />
+          <div hidden>
+            <Camera
+              ref={(cam) => {
+                this.camera = cam;
+              }}
+            />
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

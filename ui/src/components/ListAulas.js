@@ -28,10 +28,20 @@ class ListAulas extends Component {
 
   handleLink(d) {
     if (d.original.tipo === 2) {
-      return <Link to={`/aulas/${d.original.id}`}>AQUI</Link>
+       return (
+        <button style={{ borderRadius: 5, backgroundColor: 'green', height: 30 }} type="button" className="btn" onClick={() => window.location.href=`/aulas/${d.original.id}`}>
+          <label style={{ color: '#fff', padding: 20, fontWeight: 600 }}>Acessar</label>
+        </button>
+      )
+      // return <Link to={`/aulas/${d.original.id}`}>AQUI</Link>
     }
     if (d.original.tipo === 3) {
-      return <Link to={`/relatorios/${d.original.id}`}>AQUI</Link> 
+      return (
+        <button style={{ borderRadius: 5, backgroundColor: 'blue', height: 30 }} type="button" className="btn" onClick={() => window.location.href=`/relatorios/${d.original.id}`}>
+          <label style={{ color: '#fff', padding: 20, fontWeight: 600 }}>Acessar</label>
+        </button>
+      )
+      // return <Link to={`/relatorios/${d.original.id}`}>AQUI</Link> 
     }
     return null
   }
@@ -48,7 +58,7 @@ class ListAulas extends Component {
       Header: 'Final',
       accessor: 'data_final'
     }, {
-      Header: 'Acessar',
+      Header: 'Detalhes',
       Cell: d => this.handleLink(d)
     }]
 

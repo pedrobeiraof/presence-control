@@ -24,7 +24,10 @@ class Reconhecimento(APIView):
 				alunos = aula.alunos.all()
 				encoding_list = [self.generate_encodings(aluno) for aluno in alunos]
 				unknown_image = face_recognition.load_image_file(imagem)
-				unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
+				try:
+					unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
+				except Exception as e:
+					return Response(data=[])
 
 				results = face_recognition.compare_faces(encoding_list, unknown_encoding)
 
