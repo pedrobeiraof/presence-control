@@ -22,7 +22,7 @@ mpyq==0.2.5
 numpy==1.14.5
 opencv-python==3.4.1.15
 pbr==4.0.4
-Pillow==5.1.0
+Pillow==8.2.0
 portpicker==1.2.0
 protobuf==3.6.0
 pygame==1.9.3
