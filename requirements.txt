@@ -4,7 +4,7 @@ chardet==3.0.4
 click==6.7
 cmake==0.7.1
 dj-database-url==0.5.0
-Django==2.0.6
+Django==2.2.24
 django-admin==1.2.6
 django-excel-response2==2.0.8
 django-extensions==2.1.3
