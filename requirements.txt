@@ -24,7 +24,7 @@ opencv-python==3.4.1.15
 pbr==4.0.4
 Pillow==5.1.0
 portpicker==1.2.0
-protobuf==3.6.0
+protobuf==3.18.3
 pygame==1.9.3
 pygraphviz==1.5
 PySC2==2.0.1
